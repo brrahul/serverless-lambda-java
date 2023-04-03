@@ -1,0 +1,43 @@
+plugins {
+  id("java")
+}
+
+version = "0.1"
+group = "com.amazonaws.serverless.sample.springboot2"
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  annotationProcessor("org.projectlombok:lombok:1.18.24")
+
+  implementation("org.springframework.boot:spring-boot-starter-web:2.7.10") {
+    exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+  }
+  implementation("com.amazonaws.serverless:aws-serverless-java-container-springboot2:[1.4,)")
+  implementation("org.springframework.boot:spring-boot-starter-data-jpa:2.7.10")
+  implementation("org.projectlombok:lombok:1.18.24")
+  implementation("javax.xml.bind:jaxb-api:2.3.1")
+  implementation("org.mariadb.jdbc:mariadb-java-client:2.7.6")
+  implementation("org.liquibase:liquibase-core:4.16.1")
+
+  runtimeOnly("io.symphonia:lambda-logging:1.0.3")
+
+  compileOnly("org.projectlombok:lombok:1.18.24")
+
+  testImplementation("junit:junit")
+
+}
+
+task buildZip(type: Zip) {
+  from compileJava
+  from processResources
+  into('lib') {
+    from(configurations.compileClasspath) {
+      exclude 'tomcat-embed-*'
+    }
+  }
+}
+
+build.dependsOn buildZip

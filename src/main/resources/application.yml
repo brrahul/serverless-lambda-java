@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:mariadb://database-2.c4dgzt8fc7pf.us-east-1.rds.amazonaws.com:3306/test?allowMultiQueries=true
+    username: root
+    password: password123
+    driver-class-name: org.mariadb.jdbc.Driver
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    ddl-auto: none
+    show-sql: true
+  liquibase:
+    change-log: classpath:data/changelog/db.changelog-master.xml
