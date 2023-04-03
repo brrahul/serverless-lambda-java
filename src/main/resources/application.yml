@@ -1,0 +1,24 @@
+micronaut:
+  application:
+    name: micronautguide
+jackson:
+  bean-introspection-module: true
+datasources:
+  default:
+    allow-pool-suspension: true
+    url: jdbc:mariadb://database-2.c4dgzt8fc7pf.us-east-1.rds.amazonaws.com:3306/test?allowMultiQueries=true
+    driverClassName: org.mariadb.jdbc.Driver
+    username: root
+    password: password123
+jpa:
+  default:
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: none
+        show_sql: true
+        dialect: org.hibernate.dialect.MariaDBDialect
+liquibase:
+  datasources:
+    default:
+      change-log: 'classpath:data/changelog/db.changelog-master.xml'
